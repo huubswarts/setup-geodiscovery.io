@@ -22,13 +22,22 @@ export default function LinkGenerator() {
       // Encode the JSON-LD code to Base64 (Unicode safe)
       const encodedCode = btoa(unescape(encodeURIComponent(inputCode)));
       const baseUrl = window.location.origin;
-      const link = `${baseUrl}/?data=${encodedCode}`;
+      
+      // Add a unique timestamp ID to ensure the URL is always unique
+      const uniqueId = Date.now().toString(36);
+      const link = `${baseUrl}/?data=${encodedCode}&ref=${uniqueId}`;
       
       setGeneratedLink(link);
     } catch (e) {
       console.error("Encoding failed", e);
       alert("Er ging iets mis met het genereren van de link. Controleer of er vreemde tekens in de tekst staan.");
     }
+  };
+
+  const resetForm = () => {
+    setInputCode('');
+    setGeneratedLink('');
+    setCopiedLink(false);
   };
 
   const copyLink = () => {
@@ -66,14 +75,26 @@ export default function LinkGenerator() {
             />
           </div>
 
-          <button
-            onClick={generateLink}
-            disabled={!inputCode.trim()}
-            className="w-full bg-[#e18409] hover:bg-[#c67306] disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
-          >
-            <Zap size={20} />
-            Genereer Link
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={generateLink}
+              disabled={!inputCode.trim()}
+              className="flex-1 bg-[#e18409] hover:bg-[#c67306] disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
+            >
+              <Zap size={20} />
+              Genereer Link
+            </button>
+            
+            {generatedLink && (
+              <button
+                onClick={resetForm}
+                className="bg-slate-800 hover:bg-slate-700 text-white px-6 rounded-xl font-bold flex items-center justify-center transition-all active:scale-95"
+                title="Nieuwe Klant (Reset)"
+              >
+                <Zap size={20} className="rotate-45" />
+              </button>
+            )}
+          </div>
 
           {generatedLink && (
             <motion.div 
