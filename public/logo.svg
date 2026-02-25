@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" fill="none">
+  <!-- Icon: Stylized Orange Arrow/Chevron -->
+  <path d="M20 45 L45 30 L20 15 L35 15 L60 30 L35 45 Z" fill="#e18409" />
+  <path d="M35 45 L60 30 L35 15" stroke="#e18409" stroke-width="0" />
+  
+  <!-- Text: GeoDiscovery -->
+  <text x="70" y="40" font-family="Arial, sans-serif" font-weight="bold" font-size="32" fill="white">GeoDiscovery</text>
+</svg>

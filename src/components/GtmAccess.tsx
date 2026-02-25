@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 
 export default function GtmAccess() {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const email = "info@geodiscovery.io";
+  const email = "contact@geodiscovery.io";
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);

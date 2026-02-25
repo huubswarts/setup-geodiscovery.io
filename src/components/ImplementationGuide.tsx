@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Copy, Check, Send, Globe, ShieldCheck, Zap, ArrowRight, Layout, Server, Search, ArrowDown, FileJson, Bot, Database, HelpCircle, Mail, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -8,8 +8,7 @@ export default function ImplementationGuide() {
   const [copiedEmailUs, setCopiedEmailUs] = useState(false);
   const [copiedEmailVerify, setCopiedEmailVerify] = useState(false);
   const [activeTab, setActiveTab] = useState<'wordpress' | 'wix' | 'html' | null>(null);
-
-  const jsonLdCode = `<script type="application/ld+json">
+  const [jsonLdCode, setJsonLdCode] = useState(`<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -22,7 +21,20 @@ export default function ImplementationGuide() {
     "https://www.linkedin.com/company/uwbedrijf"
   ]
 }
-</script>`;
+</script>`);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const data = params.get('data');
+    if (data) {
+      try {
+        const decoded = atob(data);
+        setJsonLdCode(decoded);
+      } catch (e) {
+        console.error("Failed to decode JSON-LD data from URL", e);
+      }
+    }
+  }, []);
 
   const emailTextDev = `Hoi [Naam Webbouwer],
 
@@ -36,7 +48,7 @@ Dit is essentieel voor onze toekomstige vindbaarheid. Laat je even weten als het
 
 Alvast bedankt!`;
 
-  const emailTextUs = `Hoi AI-Signal Team,
+  const emailTextUs = `Hoi GeoDiscovery Team,
 
 Ik heb mijn code ontvangen, maar ik vind het lastig om deze zelf te plaatsen. 
 
@@ -46,7 +58,7 @@ Mijn website is: [UW WEBSITE URL]
 
 Graag hoor ik wat de vervolgstappen zijn.`;
 
-  const emailTextVerify = `Hoi AI-Signal Team,
+  const emailTextVerify = `Hoi GeoDiscovery Team,
 
 De JSON-LD code is geplaatst op mijn website!
 
@@ -85,24 +97,6 @@ Alvast bedankt!`;
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,#e18409_0%,transparent_50%)] opacity-10"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#e18409] rounded-full blur-[100px] opacity-10"></div>
       </div>
-
-      {/* Navigation */}
-      <nav className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#e18409] to-orange-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-900/20">
-              <Zap size={24} fill="currentColor" />
-            </div>
-            <div>
-              <span className="block font-bold text-xl tracking-tight text-white leading-none">AI-Signal</span>
-              <span className="text-xs text-slate-500 font-medium tracking-widest uppercase">Implementatie Gids</span>
-            </div>
-          </div>
-          <div className="hidden sm:flex items-center gap-4 text-sm font-medium text-slate-400">
-            <span className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> Status: Wacht op activatie</span>
-          </div>
-        </div>
-      </nav>
 
       <main className="max-w-5xl mx-auto px-6 py-12 space-y-24 relative z-10">
         
@@ -437,7 +431,7 @@ Alvast bedankt!`;
         </motion.section>
 
         <footer className="text-center text-slate-600 text-sm pt-12 border-t border-slate-900">
-          <p>&copy; {new Date().getFullYear()} AI-Signal. Uw partner in AI-vindbaarheid.</p>
+          <p>&copy; {new Date().getFullYear()} GeoDiscovery. Uw partner in AI-vindbaarheid.</p>
         </footer>
 
       </main>
