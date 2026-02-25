@@ -463,8 +463,9 @@ Alvast bedankt!`;
           </div>
         </motion.section>
 
-        <footer className="text-center text-slate-600 text-sm pt-12 border-t border-slate-900">
+        <footer className="text-center text-slate-600 text-sm pt-12 border-t border-slate-900 flex flex-col gap-2 items-center">
           <p>&copy; {new Date().getFullYear()} GeoDiscovery. Uw partner in AI-vindbaarheid.</p>
+          <a href="#generate" className="text-slate-800 hover:text-slate-600 text-xs transition-colors">Admin Login</a>
         </footer>
 
       </main>

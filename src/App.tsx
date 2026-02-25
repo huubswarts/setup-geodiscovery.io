@@ -14,9 +14,18 @@ export default function App() {
   const [isGenerator, setIsGenerator] = useState(false);
 
   useEffect(() => {
-    if (window.location.pathname === '/generate') {
+    // Check for both pathname (if supported) and hash (fallback)
+    if (window.location.pathname === '/generate' || window.location.hash === '#generate') {
       setIsGenerator(true);
     }
+    
+    // Listen for hash changes
+    const handleHashChange = () => {
+      setIsGenerator(window.location.hash === '#generate');
+    };
+    
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   if (isGenerator) {

@@ -25,7 +25,10 @@ export default function LinkGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans selection:bg-[#e18409] selection:text-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans selection:bg-[#e18409] selection:text-white flex items-center justify-center p-6 relative">
+      <a href="#" className="absolute top-6 left-6 text-slate-500 hover:text-white flex items-center gap-2 transition-colors">
+        <ArrowRight className="rotate-180" size={20} /> Terug
+      </a>
       <div className="max-w-2xl w-full space-y-8">
         
         <div className="text-center space-y-2">
