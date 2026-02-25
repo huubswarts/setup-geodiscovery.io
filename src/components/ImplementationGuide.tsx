@@ -28,7 +28,8 @@ export default function ImplementationGuide() {
     const data = params.get('data');
     if (data) {
       try {
-        const decoded = atob(data);
+        // Decode Base64 (Unicode safe)
+        const decoded = decodeURIComponent(escape(window.atob(data)));
         setJsonLdCode(decoded);
       } catch (e) {
         console.error("Failed to decode JSON-LD data from URL", e);
@@ -152,40 +153,8 @@ Alvast bedankt!`;
                 </div>
                 
                 <div className="p-6 md:p-8 overflow-x-auto bg-[#0B1120]">
-                  <pre className="font-mono text-sm md:text-base leading-relaxed text-slate-300">
-                    <code>
-                      <span className="text-slate-500">&lt;</span>
-                      <span className="text-pink-400">script</span> <span className="text-slate-400">type</span>
-                      <span className="text-slate-500">=</span>
-                      <span className="text-green-400">"application/ld+json"</span>
-                      <span className="text-slate-500">&gt;</span>
-                      {'\n'}
-                      <span className="text-yellow-400">{'{'}</span>
-                      {'\n  '}
-                      <span className="text-blue-300">"@context"</span>: <span className="text-green-400">"https://schema.org"</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"@type"</span>: <span className="text-green-400">"Organization"</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"name"</span>: <span className="text-green-400">"UW BEDRIJFSNAAM"</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"url"</span>: <span className="text-green-400">"https://www.uwwebsite.nl"</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"logo"</span>: <span className="text-green-400">"https://www.uwwebsite.nl/logo.png"</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"description"</span>: <span className="text-green-400">"Korte beschrijving..."</span>,
-                      {'\n  '}
-                      <span className="text-blue-300">"sameAs"</span>: [
-                      {'\n    '}
-                      <span className="text-green-400">"https://www.linkedin.com/..."</span>
-                      {'\n  '}
-                      ]
-                      {'\n'}
-                      <span className="text-yellow-400">{'}'}</span>
-                      {'\n'}
-                      <span className="text-slate-500">&lt;/</span>
-                      <span className="text-pink-400">script</span>
-                      <span className="text-slate-500">&gt;</span>
-                    </code>
+                  <pre className="font-mono text-sm md:text-base leading-relaxed text-slate-300 whitespace-pre-wrap break-all">
+                    <code>{jsonLdCode}</code>
                   </pre>
                 </div>
 

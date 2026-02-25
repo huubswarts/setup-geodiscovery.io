@@ -10,12 +10,17 @@ export default function LinkGenerator() {
   const generateLink = () => {
     if (!inputCode.trim()) return;
     
-    // Encode the JSON-LD code to Base64 to make it URL-safe
-    const encodedCode = btoa(inputCode);
-    const baseUrl = window.location.origin; // Gets the current domain
-    const link = `${baseUrl}/?data=${encodedCode}`;
-    
-    setGeneratedLink(link);
+    try {
+      // Encode the JSON-LD code to Base64 (Unicode safe)
+      const encodedCode = btoa(unescape(encodeURIComponent(inputCode)));
+      const baseUrl = window.location.origin;
+      const link = `${baseUrl}/?data=${encodedCode}`;
+      
+      setGeneratedLink(link);
+    } catch (e) {
+      console.error("Encoding failed", e);
+      alert("Er ging iets mis met het genereren van de link. Controleer of er vreemde tekens in de tekst staan.");
+    }
   };
 
   const copyLink = () => {
