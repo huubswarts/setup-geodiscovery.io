@@ -10,6 +10,14 @@ export default function LinkGenerator() {
   const generateLink = () => {
     if (!inputCode.trim()) return;
     
+    // Validate JSON before generating link
+    try {
+      JSON.parse(inputCode);
+    } catch (e) {
+      alert("De ingevoerde code is geen geldige JSON. Controleer de syntax (bijv. ontbrekende komma's of haakjes).");
+      return;
+    }
+
     try {
       // Encode the JSON-LD code to Base64 (Unicode safe)
       const encodedCode = btoa(unescape(encodeURIComponent(inputCode)));

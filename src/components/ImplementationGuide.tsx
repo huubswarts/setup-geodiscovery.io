@@ -23,6 +23,9 @@ export default function ImplementationGuide() {
 }
 </script>`);
 
+  const [isCustomLink, setIsCustomLink] = useState(false);
+  const [linkError, setLinkError] = useState(false);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const data = params.get('data');
@@ -30,9 +33,15 @@ export default function ImplementationGuide() {
       try {
         // Decode Base64 (Unicode safe)
         const decoded = decodeURIComponent(escape(window.atob(data)));
+        // Verify it's valid JSON (or at least looks like code)
+        if (!decoded.trim().startsWith('<') && !decoded.trim().startsWith('{')) {
+           throw new Error("Invalid format");
+        }
         setJsonLdCode(decoded);
+        setIsCustomLink(true);
       } catch (e) {
         console.error("Failed to decode JSON-LD data from URL", e);
+        setLinkError(true);
       }
     }
   }, []);
@@ -116,6 +125,18 @@ Alvast bedankt!`;
           animate="visible"
           className="text-center space-y-6 py-8"
         >
+          {linkError && (
+            <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-xl max-w-2xl mx-auto mb-8 flex items-center gap-3">
+              <div className="p-2 bg-red-500/20 rounded-full">
+                <ShieldCheck size={20} className="text-red-500" />
+              </div>
+              <div className="text-left">
+                <p className="font-bold">Let op: Ongeldige Link</p>
+                <p className="text-sm opacity-80">De link die u gebruikt lijkt beschadigd of onvolledig. Neem contact op met GeoDiscovery voor een nieuwe link.</p>
+              </div>
+            </div>
+          )}
+
           <motion.div variants={itemVariants}>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
               Activeer uw <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e18409] to-orange-400">Digitale Paspoort</span>
