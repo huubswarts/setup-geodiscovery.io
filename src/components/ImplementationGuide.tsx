@@ -74,6 +74,12 @@ Alvast bedankt!`;
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleEmail = (to: string, subject: string, body: string) => {
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
+    window.location.href = `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}`;
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -328,13 +334,22 @@ Alvast bedankt!`;
                     <p className="text-sm text-slate-500 mb-6 italic">
                       "Hoi, ik heb een Digitaal Paspoort laten maken..."
                     </p>
-                    <button 
-                      onClick={() => copyToClipboard(emailTextDev, setCopiedEmailDev)}
-                      className="w-full bg-white hover:bg-slate-100 text-slate-900 px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
-                    >
-                      {copiedEmailDev ? <Check size={16} /> : <Send size={16} />}
-                      {copiedEmailDev ? "Tekst Gekopieerd!" : "Kopieer Instructie"}
-                    </button>
+                    <div className="space-y-3">
+                      <button 
+                        onClick={() => handleEmail('', 'Implementatie Digitaal Paspoort', emailTextDev)}
+                        className="w-full bg-[#e18409] hover:bg-[#c67306] text-white px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
+                      >
+                        <Mail size={16} />
+                        Open E-mail
+                      </button>
+                      <button 
+                        onClick={() => copyToClipboard(emailTextDev, setCopiedEmailDev)}
+                        className="w-full bg-white hover:bg-slate-100 text-slate-900 px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
+                      >
+                        {copiedEmailDev ? <Check size={16} /> : <Copy size={16} />}
+                        {copiedEmailDev ? "Tekst Gekopieerd!" : "Kopieer Tekst"}
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -366,13 +381,22 @@ Alvast bedankt!`;
                         </div>
                     </div>
 
-                    <button 
-                      onClick={() => copyToClipboard(emailTextUs, setCopiedEmailUs)}
-                      className="w-full bg-[#e18409] hover:bg-[#c67306] text-white px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-orange-900/20 active:scale-95"
-                    >
-                      {copiedEmailUs ? <Check size={16} /> : <Mail size={16} />}
-                      {copiedEmailUs ? "Bericht Gekopieerd!" : "Kopieer Bericht voor Ons"}
-                    </button>
+                    <div className="space-y-3">
+                      <button 
+                        onClick={() => handleEmail('contact@geodiscovery.io', 'Hulp bij implementatie', emailTextUs)}
+                        className="w-full bg-[#e18409] hover:bg-[#c67306] text-white px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-orange-900/20 active:scale-95"
+                      >
+                        <Send size={16} />
+                        Verstuur Direct
+                      </button>
+                      <button 
+                        onClick={() => copyToClipboard(emailTextUs, setCopiedEmailUs)}
+                        className="w-full bg-slate-800 hover:bg-slate-700 text-white px-4 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
+                      >
+                        {copiedEmailUs ? <Check size={16} /> : <Copy size={16} />}
+                        {copiedEmailUs ? "Bericht Gekopieerd!" : "Kopieer Tekst"}
+                      </button>
+                    </div>
                     <p className="text-xs text-center text-slate-500 mt-3">
                       Stuur dit naar: <span className="text-slate-300 font-medium">contact@geodiscovery.io</span>
                     </p>
@@ -415,11 +439,18 @@ Alvast bedankt!`;
 
                  <div className="flex flex-col gap-3 w-full md:w-auto relative z-10">
                     <button 
-                      onClick={() => copyToClipboard(emailTextVerify, setCopiedEmailVerify)}
+                      onClick={() => handleEmail('contact@geodiscovery.io', 'Verificatie Digitaal Paspoort', emailTextVerify)}
                       className="whitespace-nowrap bg-white hover:bg-slate-100 text-slate-900 px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-xl shadow-white/5 flex items-center justify-center gap-3 active:scale-95"
                     >
-                      {copiedEmailVerify ? <Check size={20} /> : <Send size={20} />}
-                      {copiedEmailVerify ? "Bericht Gekopieerd!" : "Kopieer Verificatie Bericht"}
+                      <Send size={20} />
+                      Verstuur Direct
+                    </button>
+                    <button 
+                      onClick={() => copyToClipboard(emailTextVerify, setCopiedEmailVerify)}
+                      className="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-slate-300 px-8 py-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
+                    >
+                      {copiedEmailVerify ? <Check size={14} /> : <Copy size={14} />}
+                      {copiedEmailVerify ? "Gekopieerd!" : "Kopieer Tekst"}
                     </button>
                     <p className="text-xs text-center text-slate-500">
                       Stuur dit naar: <span className="text-slate-400">contact@geodiscovery.io</span>
