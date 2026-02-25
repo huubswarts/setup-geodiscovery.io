@@ -77,7 +77,9 @@ Alvast bedankt!`;
   const handleEmail = (to: string, subject: string, body: string) => {
     const encodedSubject = encodeURIComponent(subject);
     const encodedBody = encodeURIComponent(body);
-    window.location.href = `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}`;
+    // Use Gmail compose URL as requested
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${encodedSubject}&body=${encodedBody}`;
+    window.open(gmailUrl, '_blank');
   };
 
   const containerVariants = {
